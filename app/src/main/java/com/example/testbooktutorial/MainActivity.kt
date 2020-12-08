@@ -3,6 +3,7 @@ package com.example.testbooktutorial
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testbooktutorial.adapter.MovieListAdapter
@@ -11,6 +12,7 @@ import com.example.testbooktutorial.model.network.RetrofitClient
 import com.example.testbooktutorial.model.network.RetrofitServices
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main_fragment.view.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         var retrofit = RetrofitClient().getInstance()
         val request = retrofit.create(RetrofitServices::class.java)
 
@@ -35,8 +39,8 @@ class MainActivity : AppCompatActivity() {
                     println("inside call")
                     //API response
                     println(apiResponse)
-                    progress_bar.visibility = View.GONE
-                    recyclerView.apply {
+                    frag.progress_bar.visibility = View.GONE
+                    frag.recyclerView.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this@MainActivity)
                         if (apiResponse != null) {
