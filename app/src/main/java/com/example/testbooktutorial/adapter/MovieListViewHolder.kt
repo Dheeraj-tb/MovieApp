@@ -1,15 +1,25 @@
 package com.example.testbooktutorial.adapter
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.testbooktutorial.R
 import com.example.testbooktutorial.databinding.CardBinding
 import com.example.testbooktutorial.model.Result
 
-class MovieListViewHolder(val binding: CardBinding) : RecyclerView.ViewHolder(binding.root) {
+class MovieListViewHolder(binding: CardBinding) : RecyclerView.ViewHolder(binding.root) {
 
-
+    companion object{
+        fun create(inflater: LayoutInflater,
+                   viewGroup: ViewGroup) : MovieListViewHolder {
+            val binding = DataBindingUtil.inflate<CardBinding>(inflater, R.layout.card , viewGroup ,false)
+            return MovieListViewHolder(binding)
+        }
+    }
     private val photo: ImageView = binding.moviePhoto
     private val title: TextView = binding.movieTitle
     private val overview: TextView = binding.movieOverview
@@ -18,9 +28,14 @@ class MovieListViewHolder(val binding: CardBinding) : RecyclerView.ViewHolder(bi
     fun bind(movie: Result) {
         print("Bind")
         Glide.with(photo).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").into(photo)
-        title.text = "Title: "+movie.title
-        overview.text = movie.overview
-        rating.text = "Rating : "+movie.vote_average.toString()
+
+        val titleText = "Title: "+movie.title
+        val ratingText = "Rating : "+movie.vote_average.toString()
+        val overviewText = movie.overview
+
+        title.text = titleText
+        overview.text = overviewText
+        rating.text = ratingText
     }
 
 }

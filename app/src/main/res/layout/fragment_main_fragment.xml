@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_fragment">
+    tools:context=".Mainfragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Popular Movies"
+        android:text="@string/popular_movies"
         android:textSize="20sp"
         tools:ignore="MissingConstraints"
         tools:textAlignment="center" />

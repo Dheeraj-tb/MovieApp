@@ -20,22 +20,40 @@ import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.card.view.*
 //ListAdapter<Result, MovieListViewHolder>(MovieListDiffCallback())
-class MovieListAdapter(val result: List<Result>) : ListAdapter<Result, MovieListViewHolder>(MovieListDiffCallback()) {
+class MovieListAdapter() : ListAdapter<Any, RecyclerView.ViewHolder>(MovieListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
         print("On create ViewHOlder")
-        val binding: CardBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.card, parent, false)
-        return MovieListViewHolder(binding)
+        var viewHolder : RecyclerView.ViewHolder? = null
+        val inflater = LayoutInflater.from(parent.context)
+        when(viewType){
+            R.layout.card -> viewHolder = MovieListViewHolder.create(inflater, parent)
+        }
+        return  (viewHolder as MovieListViewHolder?)!!
     }
 
-    override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         print("On BindViewHOlder")
-        holder.bind(result[position])
+        val item = getItem(position)
+        when(holder){
+            is MovieListViewHolder -> holder.bind(item as Result)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return result.size
+    override fun getItemViewType(position: Int): Int {
+        super.getItemViewType(position)
+        val item = getItem(position)
+        var itemViewType = 0
+        when(item){
+            is Result -> itemViewType = R.layout.card
+        }
+        return itemViewType
     }
+
+    public override fun getItem(position: Int): Any {
+        return super.getItem(position)
+    }
+
 
 
 }

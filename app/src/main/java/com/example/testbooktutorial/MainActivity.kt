@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testbooktutorial.adapter.MovieListAdapter
@@ -25,41 +26,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var retrofit = RetrofitClient().getInstance()
-        val request = retrofit.create(RetrofitServices::class.java)
-
-        val call = request.getMovies("b5a7aaff88a786d4924db7b0c9f8596e")
-
-        println("ready")
-
-        call.enqueue(object : Callback<MovieModel?> {
-            override fun onResponse(call: Call<MovieModel?>, response: Response<MovieModel?>) {
-                if (response.isSuccessful) {
-                    val apiResponse: MovieModel? = response.body()
-                    println("inside call")
-                    //API response
-                    println(apiResponse)
-                    frag.progress_bar.visibility = View.GONE
-                    frag.recyclerView.apply {
-                        println("inside apply")
-                        setHasFixedSize(true)
-                        layoutManager = LinearLayoutManager(this@MainActivity)
-                        if (apiResponse != null) {
-                            adapter = MovieListAdapter(apiResponse.results)
-                        }
-                    }
-                } else {
-                    println("Request Error :: " + response.errorBody() + response.message() + response.code())
-                }
-            }
-
-            override fun onFailure(call: Call<MovieModel?>, t: Throwable) {
-                println("Network Error :: " + t.localizedMessage)
-            }
-        })
-
-
-        println("recycler updated")
+        initFragment()
     }
 
+    private fun initFragment(){
+        val fragment = Mainfragment()
+        val transaction :FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.frag, fragment)
+        transaction.commit()
+    }
 }
