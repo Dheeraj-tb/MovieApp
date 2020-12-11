@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.CardViewBindingAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.testbooktutorial.MainActivity
@@ -17,38 +19,25 @@ import com.example.testbooktutorial.model.Result
 import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.card.view.*
+//ListAdapter<Result, MovieListViewHolder>(MovieListDiffCallback())
+class MovieListAdapter(val result: List<Result>) : ListAdapter<Result, MovieListViewHolder>(MovieListDiffCallback()) {
 
-class MovieListAdapter(val result: List<Result>) : RecyclerView.Adapter<MovieListAdapter.MoviesViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
+        print("On create ViewHOlder")
         val binding: CardBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.card, parent, false)
-        return MovieListAdapter.MoviesViewHolder(binding)
+        return MovieListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-                holder.bind(result[position])
-        }
+    override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
+        print("On BindViewHOlder")
+        holder.bind(result[position])
+    }
 
     override fun getItemCount(): Int {
         return result.size
     }
-    class MoviesViewHolder(val binding: CardBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
-        private val photo:ImageView = binding.moviePhoto
-        private val title:TextView = binding.movieTitle
-        private val overview:TextView = binding.movieOverview
-        private val rating:TextView = binding.movieRating
-
-        fun bind(movie: Result) {
-
-            Glide.with(photo).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").into(photo)
-            title.text = "Title: "+movie.title
-            overview.text = movie.overview
-            rating.text = "Rating : "+movie.vote_average.toString()
-        }
-
-    }
 }
 
-
+//ListAdapter<Result, MovieListViewHolder>(MovieListDiffCallback())

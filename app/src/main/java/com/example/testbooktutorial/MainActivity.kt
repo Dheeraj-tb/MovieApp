@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
                     println(apiResponse)
                     frag.progress_bar.visibility = View.GONE
                     frag.recyclerView.apply {
+                        println("inside apply")
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this@MainActivity)
                         if (apiResponse != null) {
-                            adapter =
-                                    MovieListAdapter(apiResponse.results)
+                            adapter = MovieListAdapter(apiResponse.results)
                         }
                     }
                 } else {
