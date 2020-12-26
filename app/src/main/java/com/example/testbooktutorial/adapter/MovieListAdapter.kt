@@ -3,8 +3,10 @@ package com.example.testbooktutorial.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.CardViewBindingAdapter
@@ -13,15 +15,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.testbooktutorial.MainActivity
+import com.example.testbooktutorial.Mainfragment
 import com.example.testbooktutorial.R
 import com.example.testbooktutorial.databinding.CardBinding
 import com.example.testbooktutorial.model.Result
 import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.card.view.*
+import kotlinx.android.synthetic.main.fragment_main_fragment.*
+
 //ListAdapter<Result, MovieListViewHolder>(MovieListDiffCallback())
 class MovieListAdapter() : ListAdapter<Any, RecyclerView.ViewHolder>(MovieListDiffCallback()) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
         print("On create ViewHOlder")
         var viewHolder : RecyclerView.ViewHolder? = null
