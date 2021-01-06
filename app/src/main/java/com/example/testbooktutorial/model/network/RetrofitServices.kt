@@ -9,6 +9,6 @@ import retrofit2.Call
 interface RetrofitServices {
 
         @GET("now_playing")
-        fun getMovies(@Query("api_key") key: String): Call<MovieModel>
+        suspend fun getMovies(@Query("api_key") key: String): MovieModel
 
 }

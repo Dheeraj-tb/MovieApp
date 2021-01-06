@@ -36,3 +36,6 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 }
+
+// TODO event bus
+// TODO RxJava vs Coroutine

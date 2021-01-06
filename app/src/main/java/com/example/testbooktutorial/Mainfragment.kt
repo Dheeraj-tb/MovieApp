@@ -61,9 +61,7 @@ class Mainfragment : Fragment() {
 
     private fun initViewModelObserver() {
         println("observer")
-        viewModel.movieRepo._MovieListResponse.observe(viewLifecycleOwner,  {
-            viewModel.onGetMovieListResponseSuccess(it)
-        })
+
         viewModel.MovieList.observe(viewLifecycleOwner,  {
             onGetMovieListResponse(it)
         })
