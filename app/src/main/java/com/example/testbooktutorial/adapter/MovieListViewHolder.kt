@@ -11,7 +11,7 @@ import com.example.testbooktutorial.R
 import com.example.testbooktutorial.databinding.CardBinding
 import com.example.testbooktutorial.model.Result
 
-class MovieListViewHolder(binding: CardBinding) : RecyclerView.ViewHolder(binding.root) {
+class MovieListViewHolder(val binding: CardBinding) : RecyclerView.ViewHolder(binding.root) {
 
     companion object{
         fun create(inflater: LayoutInflater,
@@ -21,21 +21,22 @@ class MovieListViewHolder(binding: CardBinding) : RecyclerView.ViewHolder(bindin
         }
     }
     private val photo: ImageView = binding.moviePhoto
-    private val title: TextView = binding.movieTitle
-    private val overview: TextView = binding.movieOverview
-    private val rating: TextView = binding.movieRating
-
+//    private val title: TextView = binding.movieTitle
+//    private val overview: TextView = binding.movieOverview
+//    private val rating: TextView = binding.movieRating
+//
     fun bind(movie: Result) {
         print("Bind")
-        Glide.with(photo).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").into(photo)
+
 
         val titleText = "Title: "+movie.title
         val ratingText = "Rating : "+movie.vote_average.toString()
         val overviewText = movie.overview
 
-        title.text = titleText
-        overview.text = overviewText
-        rating.text = ratingText
+        binding.movieTitle.text = titleText
+        binding.movieOverview.text = overviewText
+        binding.movieRating.text = ratingText
+        Glide.with(photo).load("https://image.tmdb.org/t/p/w500${movie.poster_path}").into(photo)
     }
 
 }
