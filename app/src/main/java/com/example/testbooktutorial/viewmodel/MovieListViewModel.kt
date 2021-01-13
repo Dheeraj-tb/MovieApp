@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class MovieListViewModel : ViewModel() {
     val movieRepo = MovieListRepo()
-    val MovieList: MutableLiveData<List<Result>> = MutableLiveData()
+    val movieList: MutableLiveData<List<Result>> = MutableLiveData()
 
     fun getMovieList() {
         viewModelScope.launch {
@@ -19,7 +19,7 @@ class MovieListViewModel : ViewModel() {
                 val response = movieRepo.fetchMovieData()
                 if (response != null) {
                     onGetMovieListResponseSuccess(response)
-                    println(MovieList)
+                    println(movieList)
                 }
             } catch (e: Exception) {
 
@@ -28,6 +28,6 @@ class MovieListViewModel : ViewModel() {
     }
 
     fun onGetMovieListResponseSuccess(response: MovieModel) {
-        MovieList.value = response.results
+        movieList.value = response.results
     }
 }

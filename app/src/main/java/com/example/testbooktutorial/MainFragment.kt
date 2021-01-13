@@ -4,29 +4,25 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testbooktutorial.adapter.MovieListAdapter
-import com.example.testbooktutorial.model.MovieModel
 import com.example.testbooktutorial.model.Result
-import com.example.testbooktutorial.model.network.RetrofitClient
-import com.example.testbooktutorial.model.network.RetrofitServices
 import com.example.testbooktutorial.viewmodel.MovieListViewModel
 import com.example.testbooktutorial.viewmodel.MovieListViewModelFactory
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_fragment.*
-import kotlinx.android.synthetic.main.fragment_main_fragment.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
-class Mainfragment : Fragment() {
+class MainFragment : Fragment() {
+
+    companion object {
+        fun newInstance() =  MainFragment().apply{
+
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,7 +58,7 @@ class Mainfragment : Fragment() {
     private fun initViewModelObserver() {
         println("observer")
 
-        viewModel.MovieList.observe(viewLifecycleOwner,  {
+        viewModel.movieList.observe(viewLifecycleOwner,  {
             onGetMovieListResponse(it)
         })
     }
